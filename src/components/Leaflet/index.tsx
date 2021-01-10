@@ -7,15 +7,19 @@ import {
   MapConsumer,
 } from "react-leaflet";
 
+import { violetIcon } from "../../data/icons";
+
 import { coordinate } from "../MapUI";
 
 import "./leaflet.css";
 
 type LeafletProps = {
   pinLocation: coordinate;
+  title: string;
+  desc: string;
 };
 
-const Leaflet = ({ pinLocation }: LeafletProps) => {
+const Leaflet = ({ pinLocation, title, desc }: LeafletProps) => {
   const position: coordinate = pinLocation ? pinLocation : [0, 0];
 
   return (
@@ -45,9 +49,12 @@ const Leaflet = ({ pinLocation }: LeafletProps) => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={position}>
+        <Marker icon={violetIcon} position={position}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            <article>
+              <h1>{title}</h1>
+              <p>{desc}</p>
+            </article>
           </Popup>
         </Marker>
       </MapContainer>

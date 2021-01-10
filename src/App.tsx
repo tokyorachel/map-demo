@@ -28,9 +28,7 @@ function App() {
           <Route path="/map">
             <MapUI />
           </Route>
-          <Route exact path="/">
-            <Redirect to="/map" />
-          </Route>
+          <Route exact path="/" render={() => <Redirect to="/map" />} />
         </Switch>
       </main>
     </div>
