@@ -1,0 +1,6 @@
+.map-ui {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-evenly;
+}

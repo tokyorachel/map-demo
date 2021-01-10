@@ -1,12 +1,10 @@
 import { Helmet } from "react-helmet-async";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import About from "./components/About";
 import Instructions from "./components/Instructions";
-import Leaflet from "./components/Leaflet";
+import MapUI from "./components/MapUI";
 import Navigation from "./components/Navigation";
-
-import "./App.css";
 
 function App() {
   return (
@@ -28,7 +26,10 @@ function App() {
             <Instructions />
           </Route>
           <Route path="/map">
-            <Leaflet />
+            <MapUI />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/map" />
           </Route>
         </Switch>
       </main>

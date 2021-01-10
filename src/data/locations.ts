@@ -1,0 +1,19 @@
+export interface ILocation {
+  [id: string]: [number, number];
+}
+
+const LOCATIONS: ILocation = {
+  TEMPE: [33.425522, -111.941254],
+  HOPI: [33.497302, -111.969821],
+  XCP: [33.505453, -112.067364],
+  UCB: [37.871593, -122.272743],
+  CAMBRIDGE: [42.373615, -71.109734],
+  MUNICH: [48.13913, 11.58022],
+  UC: [41.792135, -87.599967],
+  PILSEN: [41.856143, -87.672934],
+  WRIGLEYVILLE: [41.948051, -87.655758],
+  WELLESLEY: [42.296928, -71.291862],
+  TOKYO: [35.651424, 139.683887],
+};
+
+export default LOCATIONS;

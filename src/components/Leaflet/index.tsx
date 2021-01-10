@@ -1,10 +1,23 @@
 import { Helmet } from "react-helmet-async";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  MapConsumer,
+} from "react-leaflet";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { coordinate } from "../MapUI";
 
 import "./leaflet.css";
 
-const Leaflet = () => {
+type LeafletProps = {
+  pinLocation: coordinate;
+};
+
+const Leaflet = ({ pinLocation }: LeafletProps) => {
+  const position: coordinate = pinLocation ? pinLocation : [0, 0];
+
   return (
     <div className="leaflet-map">
       <Helmet>
@@ -21,13 +34,18 @@ const Leaflet = () => {
           crossOrigin=""
         ></script>
       </Helmet>
-      <h1>Interactive Map</h1>
-      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer center={position} zoom={4} scrollWheelZoom={true}>
+        <MapConsumer>
+          {(map) => {
+            map.setView(position, 4);
+            return null;
+          }}
+        </MapConsumer>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[51.505, -0.09]}>
+        <Marker position={position}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>

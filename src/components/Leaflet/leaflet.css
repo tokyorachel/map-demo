@@ -1,12 +1,4 @@
-.leaflet-map {
-  align-items: center;
-  display: flex;
-  flex: 1 1 auto;
-  justify-content: space-evenly;
-}
-
-
-.leaflet-map .leaflet-container {
+.leaflet-container {
   height: 500px;
   width: 500px;
 }
