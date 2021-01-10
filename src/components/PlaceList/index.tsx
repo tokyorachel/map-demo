@@ -15,7 +15,11 @@ const PlaceList = ({ handleSelect, places, active }: PlaceListProps) => {
 
   useEffect(() => {
     const id = places[currentIndex];
-    handleSelect(id);
+    if (id) {
+      handleSelect(id);
+    } else {
+      setCurrentIndex(0);
+    }
   }, [handleSelect, places, currentIndex]);
 
   const handleAdvance = (dir: string) => {
