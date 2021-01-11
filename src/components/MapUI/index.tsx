@@ -32,7 +32,7 @@ const MapUI = () => {
     <div className="map-ui">
       <div>
         <h1>A Developer's Life Journey</h1>
-        <h2>(a mostly true story)</h2>
+        <h2>(a somewhat true story)</h2>
         <PlaceList
           places={sorted}
           handleSelect={updateLocation}

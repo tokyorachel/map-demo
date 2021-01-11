@@ -2,5 +2,12 @@
   align-items: center;
   display: flex;
   flex: 1 1 auto;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: space-evenly;  
+}
+
+@media screen AND (min-width:980px ){
+  .map-ui {
+    flex-direction: row;
+  }
 }

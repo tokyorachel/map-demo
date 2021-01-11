@@ -1,6 +1,14 @@
 import { ILocations } from "../data/locations";
 
-const sortByChronological = (list: ILocations) => {
+const sortByChronological = (list: ILocations, reverse = false) => {
+  const sortable = Object.entries(list);
+  const sorted = reverse
+    ? sortable.sort(([, a], [, b]) => b.order - a.order)
+    : sortable.sort(([, a], [, b]) => a.order - b.order);
+  return sorted.map((item) => item[0]);
+};
+
+const sortByAlphabetical = (list: ILocations) => {
   const sortable = Object.entries(list);
   const sorted = sortable.sort(([, a], [, b]) => a.order - b.order);
   return sorted.map((item) => item[0]);
@@ -13,4 +21,4 @@ const filterByType = (list: ILocations, type: string) => {
   return filtered.map((item) => item[0]);
 };
 
-export { sortByChronological, filterByType };
+export { sortByChronological, sortByAlphabetical, filterByType };

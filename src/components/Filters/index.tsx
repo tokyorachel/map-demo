@@ -40,6 +40,14 @@ const Filters = ({ handleFilter }: filterProps) => {
         checked={checked === "professional"}
       />
       <label htmlFor="filter-professional">professional</label>
+      <input
+        type="radio"
+        id="filter-enrichment"
+        name="enrichment"
+        onChange={handleCheck}
+        checked={checked === "enrichment"}
+      />
+      <label htmlFor="filter-enrichment">enrichment</label>
     </div>
   );
 };

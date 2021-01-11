@@ -37,7 +37,7 @@ const PlaceList = ({ handleSelect, places, active }: PlaceListProps) => {
       {places && (
         <ol>
           {places.map((locationId) => {
-            const { city, state, country } = LOCATIONS[locationId];
+            const { city, state, country, order } = LOCATIONS[locationId];
             return (
               <li
                 key={locationId}
@@ -45,14 +45,16 @@ const PlaceList = ({ handleSelect, places, active }: PlaceListProps) => {
               >
                 <button
                   onClick={() => handleSelect(locationId)}
-                >{`${city}, ${state}, ${country}`}</button>
+                >{`${order} - ${city}, ${state}, ${country}`}</button>
               </li>
             );
           })}
         </ol>
       )}
-      <button onClick={() => handleAdvance("next")}>next</button>
-      <button onClick={() => handleAdvance("back")}>previous</button>
+      <div className="filter-buttons">
+        <button onClick={() => handleAdvance("next")}>next</button>
+        <button onClick={() => handleAdvance("back")}>previous</button>
+      </div>
     </div>
   );
 };
