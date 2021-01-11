@@ -33,7 +33,7 @@ const LOCATIONS: ILocations = {
     type: "birth",
     order: 1965,
     description:
-      "This is where our intrepid adventurer's story begins, one rainy Saturday morning, a long time ago.",
+      "This is where our intrepid adventurer's story begins, one rainy Saturday morning, a long time ago...",
     coords: [33.425522, -111.941254],
   },
   GS: {

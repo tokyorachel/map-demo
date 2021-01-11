@@ -35,26 +35,28 @@ const PlaceList = ({ handleSelect, places, active }: PlaceListProps) => {
   return (
     <div className="place-list">
       {places && (
-        <ol>
-          {places.map((locationId) => {
-            const { city, state, country, order } = LOCATIONS[locationId];
-            return (
-              <li
-                key={locationId}
-                className={locationId === active ? "active" : ""}
-              >
-                <button
-                  onClick={() => handleSelect(locationId)}
-                >{`${order} - ${city}, ${state}, ${country}`}</button>
-              </li>
-            );
-          })}
-        </ol>
+        <>
+          <div className="filter-buttons">
+            <button onClick={() => handleAdvance("next")}>next</button>
+            <button onClick={() => handleAdvance("back")}>previous</button>
+          </div>
+          <ol>
+            {places.map((locationId) => {
+              const { city, state, country, order } = LOCATIONS[locationId];
+              return (
+                <li
+                  key={locationId}
+                  className={locationId === active ? "active" : ""}
+                >
+                  <button
+                    onClick={() => handleSelect(locationId)}
+                  >{`${order} - ${city}, ${state}, ${country}`}</button>
+                </li>
+              );
+            })}
+          </ol>
+        </>
       )}
-      <div className="filter-buttons">
-        <button onClick={() => handleAdvance("next")}>next</button>
-        <button onClick={() => handleAdvance("back")}>previous</button>
-      </div>
     </div>
   );
 };

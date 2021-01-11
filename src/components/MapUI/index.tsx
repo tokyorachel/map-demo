@@ -1,25 +1,44 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import Leaflet from "../Leaflet";
 import PlaceList from "../PlaceList";
-import Filters from "../Filters";
+import Filter from "../Filter";
+import Sort from "../Sort";
 import LOCATIONS from "../../data/locations";
-import { sortByChronological, filterByType } from "../../utilities/sort";
+import { filterByType } from "../../utilities/filter";
+
+import sortReducer, { Sorts } from "../../reducers/sortReducer";
 
 import "./map-ui.css";
 
+export type Filters = "all" | "professional" | "education" | "enrichment";
 export type coordinate = [number, number] | null | undefined;
+
+const initialSort: Sorts = "chrono";
+const initialFilter: Filters = "all";
 
 const MapUI = () => {
   const [coords, setCoords] = useState<coordinate>();
   const [locationId, setLocationId] = useState<string>("");
-  const [sorted, setSorted] = useState(sortByChronological(LOCATIONS));
+  const [filterType, setFilterType] = useState<Filters>(initialFilter);
+  const [places, setPlaces] = useState(LOCATIONS);
 
-  const updateFiltered = (id: string) => {
-    if (id === "all") {
-      setSorted(sortByChronological(LOCATIONS));
-    } else {
-      setSorted(filterByType(LOCATIONS, id));
-    }
+  const [sorted, dispatchSort] = useReducer(sortReducer, LOCATIONS);
+
+  useEffect(() => {
+    const filtered = filterByType(sorted, filterType);
+    setPlaces(filtered);
+  }, [sorted, filterType]);
+
+  useEffect(() => {
+    dispatchSort({ type: initialSort });
+  }, []);
+
+  const updateFiltered = (filter: Filters = "all") => {
+    setFilterType(filter);
+  };
+
+  const updateSort = (sort: Sorts = "chrono") => {
+    dispatchSort({ type: sort });
   };
 
   const updateLocation = useCallback((location: string) => {
@@ -33,12 +52,15 @@ const MapUI = () => {
       <div>
         <h1>A Developer's Life Journey</h1>
         <h2>(a somewhat true story)</h2>
-        <PlaceList
-          places={sorted}
-          handleSelect={updateLocation}
-          active={locationId}
-        />
-        <Filters handleFilter={updateFiltered} />
+        <Sort handleSort={updateSort} />
+        {places && (
+          <PlaceList
+            places={Object.entries(places).map((item) => item[0])}
+            handleSelect={updateLocation}
+            active={locationId}
+          />
+        )}
+        <Filter handleFilter={updateFiltered} />
       </div>
       {locationId && (
         <Leaflet

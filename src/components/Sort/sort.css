@@ -1,0 +1,10 @@
+.sort ul {
+  display: flex;
+  padding: 0
+}
+
+.sort ul li {
+  font-size: 0.83rem;
+  list-style-type: none;
+  display: inline-block;
+}

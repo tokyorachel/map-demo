@@ -1,16 +1,17 @@
 import { useState } from "react";
+import { Filters } from "../MapUI";
 
 type filterProps = {
-  handleFilter: (name: string) => void;
+  handleFilter: (name: Filters) => void;
 };
 
-const Filters = ({ handleFilter }: filterProps) => {
+const Filter = ({ handleFilter }: filterProps) => {
   const [checked, setChecked] = useState<string>("all");
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     setChecked(name);
-    handleFilter(name);
+    handleFilter(name as Filters);
   };
 
   return (
@@ -52,4 +53,4 @@ const Filters = ({ handleFilter }: filterProps) => {
   );
 };
 
-export default Filters;
+export default Filter;
