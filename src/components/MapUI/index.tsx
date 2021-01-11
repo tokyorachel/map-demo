@@ -20,13 +20,14 @@ const MapUI = () => {
   const [coords, setCoords] = useState<coordinate>();
   const [locationId, setLocationId] = useState<string>("");
   const [filterType, setFilterType] = useState<Filters>(initialFilter);
-  const [places, setPlaces] = useState(LOCATIONS);
+  const [places, setPlaces] = useState<string[]>();
 
   const [sorted, dispatchSort] = useReducer(sortReducer, LOCATIONS);
 
   useEffect(() => {
     const filtered = filterByType(sorted, filterType);
-    setPlaces(filtered);
+    const newPlaces = Object.entries(filtered).map((item) => item[0]);
+    setPlaces(newPlaces);
   }, [sorted, filterType]);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const MapUI = () => {
         <Sort handleSort={updateSort} />
         {places && (
           <PlaceList
-            places={Object.entries(places).map((item) => item[0])}
+            places={places}
             handleSelect={updateLocation}
             active={locationId}
           />

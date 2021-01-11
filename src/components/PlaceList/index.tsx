@@ -22,6 +22,11 @@ const PlaceList = ({ handleSelect, places, active }: PlaceListProps) => {
     }
   }, [handleSelect, places, currentIndex]);
 
+  useEffect(() => {
+    setCurrentIndex(0);
+    handleSelect(places[0]);
+  }, [handleSelect, places]);
+
   const handleAdvance = (dir: string) => {
     let newIndex;
     if (dir === "next") {
