@@ -1,14 +1,14 @@
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
   MapConsumer,
+  Tooltip,
 } from "react-leaflet";
 
 import { violetIcon } from "../../data/icons";
-
 import { coordinate } from "../MapUI";
 
 import "./leaflet.css";
@@ -21,6 +21,11 @@ type LeafletProps = {
 
 const Leaflet = ({ pinLocation, title, desc }: LeafletProps) => {
   const position: coordinate = pinLocation ? pinLocation : [0, 0];
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    setOpen(true);
+  }, [pinLocation]);
 
   return (
     <div className="leaflet-map">
@@ -41,7 +46,8 @@ const Leaflet = ({ pinLocation, title, desc }: LeafletProps) => {
       <MapContainer center={position} zoom={4} scrollWheelZoom={true}>
         <MapConsumer>
           {(map) => {
-            map.setView(position, 4);
+            const offsetX = position[0] - 4;
+            map.setView([offsetX, position[1]], 4);
             return null;
           }}
         </MapConsumer>
@@ -49,13 +55,19 @@ const Leaflet = ({ pinLocation, title, desc }: LeafletProps) => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker icon={violetIcon} position={position}>
-          <Popup>
-            <article>
-              <h1>{title}</h1>
-              <p>{desc}</p>
-            </article>
-          </Popup>
+        <Marker
+          icon={violetIcon}
+          position={position}
+          eventHandlers={{ click: () => setOpen(!open) }}
+        >
+          {open && (
+            <Tooltip direction="center" offset={[0, 100]} permanent interactive>
+              <article>
+                <h1>{title}</h1>
+                <p>{desc}</p>
+              </article>
+            </Tooltip>
+          )}
         </Marker>
       </MapContainer>
     </div>

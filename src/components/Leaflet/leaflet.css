@@ -2,3 +2,8 @@
   height: 500px;
   width: 400px;
 }
+
+.leaflet-tooltip-pane .leaflet-tooltip {
+  width: 300px;
+  white-space: normal;
+}
